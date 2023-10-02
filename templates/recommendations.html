@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Movie Recommendations</title>
+    <!-- Include Bootstrap CSS from the static directory -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.min.css') }}">
+    <!-- Include your custom CSS from the static directory -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <h1 class="text-center">Movie Recommendations</h1>
+    <div class="container">
+        <div class="row">
+            {% for movie in movies %}
+            <div class="col-md-4 mb-4">
+                <div class="card">
+                    <img src="https://image.tmdb.org/t/p/w500{{ movie.poster_path }}" class="card-img-top" alt="Movie Poster">
+                    <!-- Modify the card section to include ratings and reviews -->
+<div class="card-body">
+    <h5 class="card-title">{{ movie.title }}</h5>
+    <p class="card-text"><strong>Lead Cast:</strong> {{ ", ".join(movie.lead_cast) }}</p>
+    <p class="card-text"><strong>Rating:</strong> {{ movie.rating }} ★</p>
+    <p class="card-text"><strong>Story:</strong> {{ movie.overview }}</p>
+    <h6 class="card-subtitle mb-2 text-muted">Recent Reviews:</h6>
+    <ul class="list-unstyled">
+        {% for review in movie.reviews %}
+        <li><strong>{{ review.author }}</strong>: {{ review.content }}</li>
+        {% endfor %}
+    </ul>
+</div>
+
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+    <!-- Include Bootstrap JS from the static directory -->
+    <script src="{{ url_for('static', filename='js/jquery.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/popper.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/bootstrap.min.js') }}"></script>
+</body>
+</html>
