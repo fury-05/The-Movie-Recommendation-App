@@ -32,14 +32,16 @@ def get_lead_cast_for_movie(api_key, movie_id):
     return []
 
 
-def get_movies_by_genre(api_key, genre_id):
-  url = f"https://api.themoviedb.org/3/discover/movie?api_key={api_key}&with_genres={genre_id}"
-  response = requests.get(url)
-  if response.status_code == 200:
-    data = response.json()
-    return data.get("results", [])
-  else:
-    return []
+def get_movies_by_genre(api_key, genre_id, year=None):
+    url = f"https://api.themoviedb.org/3/discover/movie?api_key={api_key}&with_genres={genre_id}"
+    if year:
+        url += f"&primary_release_year={year}"
+    response = requests.get(url)
+    if response.status_code == 200:
+        data = response.json()
+        return data.get("results", [])
+    else:
+        return []
 
 
 # Existing functions for getting ratings and reviews...
@@ -67,7 +69,7 @@ def recommend():
     actor_name = request.form['actor']  # User-selected actor
     year = request.form['year']  # User-selected year
     
-    movies = get_movies_by_genre(api_key, genre_id)
+    movies = get_movies_by_genre(api_key, genre_id, year)  # Pass the selected year to the function
     
     # If an actor is selected, filter movies based on the actor
     if actor_name:

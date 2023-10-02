@@ -1,0 +1,11 @@
+/* glassmorphism.css */
+
+.glass-form-container {
+    background: rgba(255, 255, 255, 0.1); /* Transparent background with some opacity */
+    border-radius: 10px;
+    padding: 20px;
+    backdrop-filter: blur(10px); /* Apply blur effect to mimic frosted glass */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* Add additional styling as needed */
